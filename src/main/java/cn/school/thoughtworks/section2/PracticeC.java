@@ -9,17 +9,24 @@ import java.util.regex.Pattern;
 public class PracticeC {
     Map<String, Integer> countSameElements(List<String> collection1) {
         Map<String, Integer> ruselt = new HashMap<String, Integer>();
-        String pattern = "([a-z])(\\D*)(\\d+)(\\D*)";
-        Pattern regex = Pattern.compile(pattern);
         for (String value : collection1) {
             String key = value;
             Integer number = 1;
             if (value.length() != 1) {
-                Matcher m = regex.matcher(value);
-                if (m.find()) {
-                    key = m.group(1);
-                    number = Integer.valueOf(m.group(3));
+                char[] temp = value.toCharArray();
+                key = String.valueOf(temp[0]);
+                String tempStr = "";
+                for (int i = 2; i < temp.length; i++) {
+                    try{
+                        Integer tempInt = Integer.parseInt(String.valueOf(temp[i]));
+                        if (0 <= tempInt && tempInt <= 9) {
+                            tempStr += temp[i];
+                        }
+                    }catch(NumberFormatException e){
+                        break;
+                    }
                 }
+                number = Integer.valueOf(tempStr);
             }
             if (ruselt.containsKey(key)) {
                 number += ruselt.get(key);

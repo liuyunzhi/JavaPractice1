@@ -9,17 +9,13 @@ import java.util.regex.Pattern;
 public class PracticeD {
     Map<String,Integer> createUpdatedCollection(List<String> collectionA, Map<String,List<String>> object) {
         Map<String, Integer> collection3 = new HashMap<String, Integer>();
-        String pattern = "([a-z])-(\\d+)";
-        Pattern regex = Pattern.compile(pattern);
         for (String value : collectionA) {
             String key = value;
             Integer count = 1;
             if (value.length() != 1) {
-                Matcher m = regex.matcher(value);
-                if (m.find()) {
-                    key = m.group(1);
-                    count = Integer.valueOf(m.group(2));
-                }
+                char[] temp = value.toCharArray();
+                key = String.valueOf(temp[0]);
+                count = Integer.parseInt(String.valueOf(temp[2]));
             }
             if (collection3.containsKey(key)) {
                 count += collection3.get(key);
